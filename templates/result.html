@@ -8,7 +8,7 @@
 <body>
     <h1>Prediction Result</h1>
     <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Uploaded Image" width="300">
-    <h2>Your sign is probably: {{ label }} ,with {{ confidence | round(4) }}% confidence</h2>
+    <h2>Your sign is probably: {{ label }} , with {{ confidence | floatformat:4 }}% confidence</h2>
     <a href="{{ url_for('index') }}">Try another image</a>
 </body>
 </html>
