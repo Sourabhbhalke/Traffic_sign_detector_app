@@ -4,6 +4,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
 from PIL import Image
 import io
+import os
 
 app = Flask(__name__)
 
@@ -54,9 +55,11 @@ def index():
                 response.headers["Cache-Control"] = "no-store"
                 return response
             except Exception as e:
-                return f"An error occurred: {e}"
+                app.logger.error(f"Error processing file: {e}")
+                return "An error occurred while processing the image. Please try again."
     
     return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
